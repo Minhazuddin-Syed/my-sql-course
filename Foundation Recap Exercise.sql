@@ -24,6 +24,32 @@ c) only the Surgery wards
 -- Write the SQL statement here
 
 
+SELECT
+    *
+FROM
+    PatientStay ps
+WHERE ps.Hospital in ('Oxleas', 'PRUH')
+AND ps.DischargeDate BETWEEN '2024-02-01' AND '2024-02-29'
+AND ps.Ward LIKE 'S%'
+
+
+--select MONTH('2024-02-13') AS MyMonth
+--SELECT DATEPART(MM, '2024-02-13')
+--SELECT DATENAME(MM, '2024-02-13')
+ 
+--SELECT LEFT(DATENAME(MM, '2024-02-13'), 3)
+
+SELECT ps.PatientId, ps.AdmittedDate, ps.DischargeDate, ps.Hospital , ps.Ward 
+, DATEDIFF(DAY, ps.AdmittedDate , ps.DischargeDate)+1 AS DaysinHospital
+FROM  
+     PatientStay ps
+WHERE ps.Hospital in ('Oxleas', 'PRUH')	 
+AND MONTH(ps.AdmittedDate) = 2
+AND ps.AdmittedDate BETWEEN '2024-02-01' AND '2024-02-29'
+AND ps.Ward like '%Surgery'
+order BY ps.AdmittedDate DESC , patientId DESC
+
+
 /*
 5. How many patients has each hospital admitted? 
 6. How much is the total tarriff for each hospital?
